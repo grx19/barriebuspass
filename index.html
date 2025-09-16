@@ -72,7 +72,7 @@
       letter-spacing:0.6px;
       text-align:center;
     }
-    .time{
+    #time{
       font-size:32px;
       font-weight:800;
       color:#fff;
@@ -170,14 +170,30 @@
 
   </style>
 </head>
-<body>
+<body onload="startTime()">
+
   <div class="phone" role="application" aria-label="Mobile preview">
     <div class="content">
       <div style="height:6px"></div>
       <div class="card">
         <div class="small">Adult 20 Ride Card</div>
         <div class="date">Tue Jan 07 2025</div>
-        <div class="time">1:00:43 PM</div>
+        <div id="time">1</div>
+        <script>
+    function pad(n){ return String(n).padStart(2, '0'); }
+
+    function updateClock(){
+      const now = new Date();
+      const h = pad(now.getHours());
+      const m = pad(now.getMinutes());
+      const s = pad(now.getSeconds());
+      document.getElementById('time').textContent = `${h}:${m}:${s}`;
+    }
+
+    updateClock();                 // show immediately
+    setInterval(updateClock, 1000); // update every second
+  </script>
+
         <div class="agency">Barrie Transit</div>
 
         <div class="bus-illustration" aria-hidden="true">
@@ -206,7 +222,7 @@
         <div class="nav-item">
           <div class="nav-icon">
             <!-- parking icon -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20" /><path d="M7 8h6a3 3 0 0 1 0 6H7z"/></svg>
+            <img src="p.png" width="40" height="40" >
           </div>
           <div>Parking</div>
         </div>
