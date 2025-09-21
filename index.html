@@ -87,14 +87,12 @@
     }
 
     .bus-illustration{
-      width:100%;
-      max-width:320px;
+      width:420px;
       height:140px;
       border-radius:6px;
-      background:#bfe3ff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="200"><rect width="600" height="200" fill="%23bfe3ff"/><g fill="none" stroke="%23000000" stroke-opacity="0.05"><rect x="20" y="40" width="560" height="120" rx="6"/></g><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="18" fill="%23444444">Bus illustration placeholder</text></svg>') center/cover no-repeat;
       display:flex;
-      align-items:center;
-      justify-content:center;
+      align-items:stretch;
+      justify-content:stretch;
       margin-bottom:18px;
       box-shadow:0 8px 20px rgba(0,0,0,0.06);
     }
@@ -189,19 +187,25 @@
       <div class="card">
         <div class="small">Adult 10 Ride Card</div>
         <div id="date"></div>
-        <script>
-    const now = new Date();
-    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-    const formatted = now.toLocaleDateString('en-US', options);
-    document.getElementById("date").textContent = formatted;
-  </script>
+<script>
+  const now = new Date();
+  const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+  let formatted = now.toLocaleDateString('en-US', options);
+
+  // Remove commas
+  formatted = formatted.replace(/,/g, '');
+
+  document.getElementById("date").textContent = formatted;
+</script>
         <div id="time">1</div>
         <script>
     function pad(n){ return String(n).padStart(2, '0'); }
 
     function updateClock(){
       const now = new Date();
-      const h = pad(now.getHours());
+      let h = now.getHours();
+      h = h % 12;
+      h = h ? h : 12; // 0 should be 12
       const m = pad(now.getMinutes());
       const s = pad(now.getSeconds());
       document.getElementById('time').textContent = `${h}:${m}:${s}`;
@@ -214,9 +218,9 @@
         <div class="agency">Barrie Transit</div>
 
         <div class="bus-illustration" aria-hidden="true">
-          <!-- Replace the background with the real bus image if you have it:
-               <img src="bus-image.jpg" alt="Bus" style="width:100%;height:100%;object-fit:cover;border-radius:6px"/>
-          -->
+          <video width="5000" height="140"  autoplay muted loop>
+            <source src="movie.mp4" type="video/mp4">
+          </video>
         </div>
 
         <button class="expire-btn">Expire</button>
@@ -271,7 +275,7 @@
           </div>
           <div>Transit</div>
         </div>
- 
+
         <div class="nav-item">
           <div class="nav-icon">
             <!-- parking icon -->
